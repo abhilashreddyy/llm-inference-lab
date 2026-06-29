@@ -1,0 +1,55 @@
+# AWS / vLLM benchmark — run this ON the GPU instance (or set base_url to the
+# EC2 public IP). The story here is CONTINUOUS BATCHING: hold the model fixed and
+# sweep concurrency. With vLLM, aggregate throughput climbs steeply with
+# concurrency while per-request latency stays bounded — the win a single-process
+# engine (your local transformers/MLX runs at concurrency 1) structurally can't get.
+#
+# vLLM serves ONE model at a time. To compare fp16 vs AWQ:
+#   1) deploy server with Qwen/Qwen2.5-7B-Instruct, run this config
+#   2) redeploy server with Qwen/Qwen2.5-7B-Instruct-AWQ, run again
+#   3) results accumulate in results/ and the dashboard compares them.
+
+workload:
+  num_requests: 96
+  max_output_tokens: 128
+  prompts:
+    - "Explain how a transformer neural network works, step by step."
+    - "Write a Python function that returns the nth Fibonacci number, with comments."
+    - "Summarize the causes of the 2008 financial crisis in one paragraph."
+    - "What are the trade-offs between latency and throughput in LLM serving?"
+    - "Describe how PagedAttention reduces KV-cache memory waste."
+    - "Give three tips for optimizing inference on a single GPU."
+
+cost:
+  # g5.xlarge us-east-1: on-demand ~1.006 $/hr; spot typically ~0.35-0.45 $/hr.
+  # Set this to what you actually pay -> unlocks the $/1M-tokens chart.
+  price_per_hour: 0.40
+
+runs:
+  - label: "vLLM 7B fp16 · concurrency 1"
+    engine: vllm
+    model: Qwen/Qwen2.5-7B-Instruct
+    quant: fp16
+    concurrency: 1
+    engine_args: { base_url: "http://localhost:8000/v1" }
+
+  - label: "vLLM 7B fp16 · concurrency 8"
+    engine: vllm
+    model: Qwen/Qwen2.5-7B-Instruct
+    quant: fp16
+    concurrency: 8
+    engine_args: { base_url: "http://localhost:8000/v1" }
+
+  - label: "vLLM 7B fp16 · concurrency 32"
+    engine: vllm
+    model: Qwen/Qwen2.5-7B-Instruct
+    quant: fp16
+    concurrency: 32
+    engine_args: { base_url: "http://localhost:8000/v1" }
+
+  - label: "vLLM 7B fp16 · concurrency 64"
+    engine: vllm
+    model: Qwen/Qwen2.5-7B-Instruct
+    quant: fp16
+    concurrency: 64
+    engine_args: { base_url: "http://localhost:8000/v1" }

@@ -1,0 +1,19 @@
+# Tiny + fast: validate the harness end-to-end before the real matrix.
+workload:
+  num_requests: 3
+  concurrency: 1
+  max_output_tokens: 32
+  prompts:
+    - "Say hello in one short sentence."
+    - "What is 2 + 2?"
+cost:
+  price_per_hour: null
+runs:
+  - label: "MLX 0.5B 4-bit (smoke)"
+    engine: mlx
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    quant: int4
+  - label: "Transformers 0.5B FP16 (smoke)"
+    engine: transformers
+    model: Qwen/Qwen2.5-0.5B-Instruct
+    quant: fp16

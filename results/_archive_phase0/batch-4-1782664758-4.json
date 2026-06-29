@@ -1,0 +1,59 @@
+{
+  "manifest": {
+    "run_id": "batch-4-1782664758-4",
+    "label": "batch size 4",
+    "engine": "mlx",
+    "model": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+    "quant": "int4",
+    "dtype": "int4",
+    "device": "mps (Metal/MLX)",
+    "concurrency": 4,
+    "num_requests": 4,
+    "max_output_tokens": 24,
+    "load_time_s": 0.32,
+    "hardware": {
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "cpu": "arm",
+      "python": "3.13.13",
+      "chip": "Apple M5 Pro",
+      "memory_gb": 24.0
+    },
+    "versions": {
+      "torch": "2.12.1",
+      "transformers": "5.12.1",
+      "mlx_lm": "0.31.3",
+      "mlx": "0.31.2"
+    },
+    "git_commit": "n/a",
+    "timestamp": "2026-06-28T16:39:18+00:00",
+    "study": "batching",
+    "params": {
+      "batch_size": 4
+    },
+    "price_per_hour": null
+  },
+  "aggregates": {
+    "system_throughput_tps": 824.5,
+    "per_stream_tps": 206.13,
+    "total_output_tokens": 96,
+    "wall_clock_s": 0.1164,
+    "compute": {
+      "peak_accel_mem_mb": 268.1,
+      "peak_rss_mb": 716.6,
+      "samples": 1
+    },
+    "cost_per_1m_tokens_usd": null
+  },
+  "requests": [],
+  "compute": [
+    {
+      "t": 0.0,
+      "rss_mb": 716.6,
+      "cpu_pct": 95.9,
+      "accel_mem_mb": 268.1,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    }
+  ]
+}

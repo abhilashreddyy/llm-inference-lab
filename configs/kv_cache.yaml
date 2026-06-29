@@ -1,0 +1,37 @@
+# STUDY 3 — KV-cache quantization at long context.
+# The KV cache grows with sequence length and dominates memory at long context.
+# Quantizing it (8-bit / 4-bit) cuts that memory. prompt_repeat lengthens the
+# context so the effect is visible.
+workload:
+  num_requests: 6
+  concurrency: 1
+  max_output_tokens: 256
+  prompt_repeat: 12          # ~2k+ token prompts to stress the cache
+  prompts:
+    - "Explain how a transformer neural network works, including attention, feed-forward layers, residual connections, and positional encoding."
+cost:
+  price_per_hour: null
+
+runs:
+  - label: "7B 4-bit · KV full precision"
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: kv_cache
+    params: { kv_bits: full }
+
+  - label: "7B 4-bit · KV 8-bit"
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: kv_cache
+    params: { kv_bits: 8 }
+    engine_args: { kv_bits: 8, quantized_kv_start: 0 }
+
+  - label: "7B 4-bit · KV 4-bit"
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: kv_cache
+    params: { kv_bits: 4 }
+    engine_args: { kv_bits: 4, quantized_kv_start: 0 }

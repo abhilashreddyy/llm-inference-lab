@@ -1,0 +1,179 @@
+{
+  "manifest": {
+    "run_id": "batch-4-1782666395-4",
+    "label": "batch size 4",
+    "engine": "mlx",
+    "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "quant": "int4",
+    "dtype": "int4",
+    "device": "mps (Metal/MLX)",
+    "concurrency": 4,
+    "num_requests": 4,
+    "max_output_tokens": 128,
+    "load_time_s": 0.54,
+    "hardware": {
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "cpu": "arm",
+      "python": "3.13.13",
+      "chip": "Apple M5 Pro",
+      "memory_gb": 24.0
+    },
+    "versions": {
+      "torch": "2.12.1",
+      "transformers": "5.12.1",
+      "mlx_lm": "0.31.3",
+      "mlx": "0.31.2"
+    },
+    "git_commit": "n/a",
+    "timestamp": "2026-06-28T17:06:35+00:00",
+    "study": "batching",
+    "params": {
+      "batch_size": 4
+    },
+    "price_per_hour": null
+  },
+  "aggregates": {
+    "system_throughput_tps": 135.59,
+    "per_stream_tps": 33.9,
+    "total_output_tokens": 512,
+    "wall_clock_s": 3.7761,
+    "compute": {
+      "peak_accel_mem_mb": 4156.0,
+      "peak_rss_mb": 4374.9,
+      "samples": 16
+    },
+    "cost_per_1m_tokens_usd": null
+  },
+  "requests": [],
+  "compute": [
+    {
+      "t": 0.0,
+      "rss_mb": 4374.9,
+      "cpu_pct": 93.0,
+      "accel_mem_mb": 4088.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.255,
+      "rss_mb": 4367.4,
+      "cpu_pct": 41.6,
+      "accel_mem_mb": 4155.4,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.51,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.5,
+      "accel_mem_mb": 4155.3,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.764,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.3,
+      "accel_mem_mb": 4155.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.02,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.3,
+      "accel_mem_mb": 4154.8,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.273,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.2,
+      "accel_mem_mb": 4155.2,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.528,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.2,
+      "accel_mem_mb": 4155.1,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.783,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.0,
+      "accel_mem_mb": 4155.2,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.038,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.6,
+      "accel_mem_mb": 4155.2,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.293,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.2,
+      "accel_mem_mb": 4154.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.548,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.4,
+      "accel_mem_mb": 4154.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.803,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.1,
+      "accel_mem_mb": 4154.7,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.056,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.1,
+      "accel_mem_mb": 4154.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.306,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.2,
+      "accel_mem_mb": 4155.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.557,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.3,
+      "accel_mem_mb": 4155.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.812,
+      "rss_mb": 4367.4,
+      "cpu_pct": 11.4,
+      "accel_mem_mb": 4156.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    }
+  ]
+}

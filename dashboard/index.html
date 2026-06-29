@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>LLM Inference Lab</h1>
+        <p class="tagline">
+          Running and optimizing open-source LLMs on a single Apple Silicon laptop —
+          and measuring what actually matters: speed, memory, and real task quality
+          (coding &amp; math). Everything here is reproducible; no cloud GPU required.
+          New to the terms? Every <span class="info" data-tip="Hover the info icons anywhere on the site for a plain-English definition.">i</span> explains itself, and there's a full Glossary.
+        </p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Headline findings</h2>
+      <div id="headline-metrics" class="metric-row"></div>
+      <p class="muted" id="headline-note"></p>
+    </section>
+
+    <section class="card">
+      <h2>Explore</h2>
+      <div class="hub">
+        <a href="models.html">
+          <h3>Models →</h3>
+          <p>Compare famous &amp; coding-specialized models on coding, math, speed, and memory. Which local model is the best assistant?</p>
+        </a>
+        <a href="optimizations.html">
+          <h3>Optimizations →</h3>
+          <p>Quantization, speculative decoding, KV-cache compression, and batching — how each makes a model faster or smaller.</p>
+        </a>
+        <a href="examples.html">
+          <h3>Examples →</h3>
+          <p>See the actual questions and what each model answered — good and bad — so the scores make sense.</p>
+        </a>
+        <a href="glossary.html">
+          <h3>Glossary →</h3>
+          <p>Plain-English definitions of every term: tokens/sec, quantization, perplexity, pass@1, and more.</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="data.js"></script>
+  <script src="models-data.js"></script>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="summary.js"></script>
+</body>
+</html>

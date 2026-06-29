@@ -1,0 +1,32 @@
+[project]
+name = "llmbench"
+version = "0.1.0"
+description = "Local-first LLM inference benchmarking harness (Mac MLX/transformers today, AWS GPU + vLLM next)."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "accelerate>=1.14.0",
+    "httpx>=0.28.1",
+    "huggingface-hub>=1.21.0",
+    "mlx>=0.31.2",
+    "mlx-lm>=0.31.3",
+    "numpy>=2.5.0",
+    "psutil>=7.2.2",
+    "pyyaml>=6.0.3",
+    "rich>=15.0.0",
+    "torch>=2.12.1",
+    "transformers>=5.12.1",
+    "typer>=0.25.1",
+]
+
+[project.scripts]
+llmbench = "llmbench.cli:app"
+
+# Local-only exploration deps (the local-lab/ quality eval). NOT installed by
+# default and NOT used by the AWS/vLLM core. Install with: uv sync --group local
+[dependency-groups]
+local = ["datasets>=3.0"]
+
+[build-system]
+requires = ["uv_build>=0.11.25,<0.12.0"]
+build-backend = "uv_build"

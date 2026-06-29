@@ -1,0 +1,13 @@
+# DEV MODE model comparison — 3 small models, tiny test sets, just to see the feel.
+# Writes to results_dev/ so it doesn't touch the kept full-run results.
+eval:
+  gsm8k_n: 5
+  humaneval_n: 5
+  n_examples: 4
+  run_math: true
+  run_coding: true
+
+configs:
+  - { label: "Qwen2.5-3B",   model: mlx-community/Qwen2.5-3B-Instruct-4bit,         family: Qwen,  kind: general, params_b: 3 }
+  - { label: "Llama-3.2-3B", model: mlx-community/Llama-3.2-3B-Instruct-4bit,       family: Llama, kind: general, params_b: 3 }
+  - { label: "Qwen2.5-Coder-1.5B", model: mlx-community/Qwen2.5-Coder-1.5B-Instruct-4bit, family: Qwen, kind: coding, params_b: 1.5 }

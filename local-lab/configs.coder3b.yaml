@@ -1,0 +1,14 @@
+# One-off: evaluate Qwen2.5-Coder-3B only (same eval settings as configs.yaml).
+eval:
+  gsm8k_n: 100        # math problems (sample of GSM8K's 1319)
+  humaneval_n: 164    # full HumanEval
+  n_examples: 6       # transcripts captured per task per model (Examples page)
+  run_math: true
+  run_coding: true
+
+configs:
+  - label: "Qwen2.5-Coder-3B"
+    model: mlx-community/Qwen2.5-Coder-3B-Instruct-4bit
+    family: Qwen
+    kind: coding
+    params_b: 3

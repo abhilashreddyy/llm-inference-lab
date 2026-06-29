@@ -1,0 +1,19 @@
+# STUDY 4 — Static batching throughput.
+# Decode N sequences in lockstep through the GPU. Aggregate throughput rises with
+# batch size (the GPU is underutilized at batch=1). This is the local, static
+# version of what vLLM's *continuous* batching does dynamically on a server.
+workload:
+  max_output_tokens: 128
+  prompts:
+    - "Explain how a transformer neural network works, step by step."
+cost:
+  price_per_hour: null
+
+runs:
+  - label: "Static batching sweep"
+    mode: batch
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: batching
+    batch_sizes: [1, 2, 4, 8, 16, 32]

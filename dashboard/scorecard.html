@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scorecard — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Scorecard</h1>
+        <p class="tagline">Every model and every optimization in one place — speed, memory and quality (coding, math, perplexity), with what's measured marked. Tap the ⓘ on any column to learn what it means.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>Across models <span class="muted" style="font-size:12px;font-weight:400">· measured at 4-bit</span></h2>
+        <div class="modelpop" id="sc-models-pop"></div>
+      </div>
+      <div class="table-scroll"><table id="sc-models-table"></table></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>Optimization stacks</h2>
+        <label class="selwrap">Model <select id="sc-model-select"></select></label>
+      </div>
+      <p class="muted">How each technique trades speed, memory and quality on one model — each row vs the bf16 baseline. Coding/math aren't measured per optimization yet, so they show “—”.</p>
+      <div class="table-scroll"><table id="sc-stacks-table"></table></div>
+    </section>
+
+  </div>
+
+  <script src="models-data.js"></script>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="scorecard.js"></script>
+</body>
+</html>

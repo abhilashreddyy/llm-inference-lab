@@ -1,0 +1,49 @@
+#!/bin/bash
+set -euxo pipefail
+exec > >(tee /var/log/llmbench-bootstrap.log) 2>&1
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update -y
+apt-get install -y python3-venv git jq awscli
+
+# uv (for running the harness on-box)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+export PATH="/root/.local/bin:$PATH"
+
+# vLLM in an isolated venv (the wheel bundles its own CUDA torch).
+python3 -m venv /opt/vllm
+/opt/vllm/bin/pip install --upgrade pip
+/opt/vllm/bin/pip install vllm
+
+# vLLM OpenAI-compatible server as a systemd service.
+cat >/etc/systemd/system/vllm.service <<EOF
+[Unit]
+Description=vLLM OpenAI server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Environment=HF_TOKEN=${hf_token}
+ExecStart=/opt/vllm/bin/vllm serve ${model} --host 0.0.0.0 --port ${vllm_port} --max-model-len ${max_model_len}
+Restart=on-failure
+RestartSec=5
+User=root
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable --now vllm.service
+
+# Make the results bucket + region discoverable to anything running on the box.
+echo "export LLMBENCH_S3_BUCKET=${s3_bucket}" >> /etc/environment
+echo "export AWS_DEFAULT_REGION=${region}" >> /etc/environment
+
+# Optionally pull the harness so you can benchmark from localhost (cleanest numbers).
+%{ if git_repo_url != "" ~}
+git clone ${git_repo_url} /opt/llm-inference-lab || true
+cd /opt/llm-inference-lab && /root/.local/bin/uv sync || true
+%{ endif ~}
+
+echo "BOOTSTRAP_DONE: vLLM serving ${model} on :${vllm_port}"

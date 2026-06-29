@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Benchmark scratch (keep configs + dashboard; raw per-run JSON is regenerable)
+results/_smoke_archive/
+.DS_Store
+
+# Node (jsdom test harness, if any)
+node_modules/
+
+# Logs & run artifacts
+*.log
+local-lab/*.log
+
+# Iteration backups (regenerated; not part of the published site)
+*.bak.js
+*.bak*.json
+
+# Editor
+.idea/
+.vscode/
+
+# Local model cache lives in ~/.cache/huggingface — never in the repo

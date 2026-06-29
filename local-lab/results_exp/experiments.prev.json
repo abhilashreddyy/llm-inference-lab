@@ -1,0 +1,530 @@
+{
+  "mode": "dev",
+  "models": [
+    "Qwen2.5-3B",
+    "Qwen2.5-1.5B",
+    "Llama-3.2-3B"
+  ],
+  "spec_by_model": [
+    {
+      "model": "Qwen2.5-3B",
+      "params_b": 3,
+      "draft": "Qwen 0.5B",
+      "baseline_tps": 130.0,
+      "spec_tps": 96.9,
+      "speedup": 0.75,
+      "acceptance_rate": 0.417,
+      "mean_accepted_per_round": 1.67,
+      "tokens_per_target_pass": 2.67,
+      "peak_mem_mb": 2067.1,
+      "baseline_mem_mb": 2063.8
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "params_b": 1.5,
+      "draft": "Qwen 0.5B",
+      "baseline_tps": 236.5,
+      "spec_tps": 162.4,
+      "speedup": 0.69,
+      "acceptance_rate": 0.55,
+      "mean_accepted_per_round": 2.2,
+      "tokens_per_target_pass": 3.2,
+      "peak_mem_mb": 1208.0,
+      "baseline_mem_mb": 1209.7
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "params_b": 3,
+      "draft": "Llama 1B",
+      "baseline_tps": 130.1,
+      "spec_tps": 123.4,
+      "speedup": 0.95,
+      "acceptance_rate": 0.691,
+      "mean_accepted_per_round": 2.76,
+      "tokens_per_target_pass": 3.76,
+      "peak_mem_mb": 2581.8,
+      "baseline_mem_mb": 2572.8
+    }
+  ],
+  "kv_by_model": [
+    {
+      "model": "Qwen2.5-3B",
+      "ctx": "~0.5k",
+      "kv": "full",
+      "peak_mem_mb": 1938.4,
+      "tpot_ms": 7.9
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "ctx": "~0.5k",
+      "kv": 4,
+      "peak_mem_mb": 1938.4,
+      "tpot_ms": 8.43
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "ctx": "~3k",
+      "kv": "full",
+      "peak_mem_mb": 2364.5,
+      "tpot_ms": 8.01
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "ctx": "~3k",
+      "kv": 4,
+      "peak_mem_mb": 2364.5,
+      "tpot_ms": 8.64
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "ctx": "~0.5k",
+      "kv": "full",
+      "peak_mem_mb": 1054.6,
+      "tpot_ms": 4.36
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "ctx": "~0.5k",
+      "kv": 4,
+      "peak_mem_mb": 1054.6,
+      "tpot_ms": 4.81
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "ctx": "~3k",
+      "kv": "full",
+      "peak_mem_mb": 1592.3,
+      "tpot_ms": 4.51
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "ctx": "~3k",
+      "kv": 4,
+      "peak_mem_mb": 1592.3,
+      "tpot_ms": 4.96
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "ctx": "~0.5k",
+      "kv": "full",
+      "peak_mem_mb": 2017.5,
+      "tpot_ms": 7.96
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "ctx": "~0.5k",
+      "kv": 4,
+      "peak_mem_mb": 2025.4,
+      "tpot_ms": 8.23
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "ctx": "~3k",
+      "kv": "full",
+      "peak_mem_mb": 2422.6,
+      "tpot_ms": 8.11
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "ctx": "~3k",
+      "kv": 4,
+      "peak_mem_mb": 2422.6,
+      "tpot_ms": 8.38
+    }
+  ],
+  "batch_by_model": [
+    {
+      "model": "Qwen2.5-3B",
+      "batch_size": 1,
+      "agg_tps": 118.6,
+      "per_stream_tps": 118.6,
+      "peak_mem_mb": 1804.3
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "batch_size": 4,
+      "agg_tps": 272.9,
+      "per_stream_tps": 68.2,
+      "peak_mem_mb": 2043.8
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "batch_size": 8,
+      "agg_tps": 299.6,
+      "per_stream_tps": 37.5,
+      "peak_mem_mb": 2376.9
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "batch_size": 1,
+      "agg_tps": 209.7,
+      "per_stream_tps": 209.7,
+      "peak_mem_mb": 954.5
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "batch_size": 4,
+      "agg_tps": 502.7,
+      "per_stream_tps": 125.7,
+      "peak_mem_mb": 1147.4
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "batch_size": 8,
+      "agg_tps": 566.7,
+      "per_stream_tps": 70.8,
+      "peak_mem_mb": 1449.3
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "batch_size": 1,
+      "agg_tps": 121.6,
+      "per_stream_tps": 121.6,
+      "peak_mem_mb": 1920.8
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "batch_size": 4,
+      "agg_tps": 278.7,
+      "per_stream_tps": 69.7,
+      "peak_mem_mb": 2224.4
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "batch_size": 8,
+      "agg_tps": 307.4,
+      "per_stream_tps": 38.4,
+      "peak_mem_mb": 2519.8
+    }
+  ],
+  "spec_detail": {
+    "target": "Qwen2.5-3B",
+    "baseline": {
+      "output_tokens": 64,
+      "ttft_ms": 102.0,
+      "tpot_ms": 7.71,
+      "throughput_tps": 129.8,
+      "peak_mem_mb": 1795.6
+    },
+    "k_sweep": [
+      {
+        "output_tokens": 64,
+        "ttft_ms": 122.8,
+        "tpot_ms": 8.35,
+        "throughput_tps": 119.8,
+        "peak_mem_mb": 2898.7,
+        "k": 2,
+        "accepted_draft": 33,
+        "target_tokens": 31,
+        "mean_accepted_per_round": 1.06,
+        "tokens_per_target_pass": 2.06,
+        "acceptance_rate": 0.532,
+        "draft_token_fraction": 0.516
+      },
+      {
+        "output_tokens": 64,
+        "ttft_ms": 132.8,
+        "tpot_ms": 10.34,
+        "throughput_tps": 96.7,
+        "peak_mem_mb": 2898.4,
+        "k": 4,
+        "accepted_draft": 40,
+        "target_tokens": 24,
+        "mean_accepted_per_round": 1.67,
+        "tokens_per_target_pass": 2.67,
+        "acceptance_rate": 0.417,
+        "draft_token_fraction": 0.625
+      }
+    ],
+    "prompt_sweep": [
+      {
+        "output_tokens": 64,
+        "ttft_ms": 134.8,
+        "tpot_ms": 7.25,
+        "throughput_tps": 138.0,
+        "peak_mem_mb": 2930.1,
+        "k": 4,
+        "accepted_draft": 47,
+        "target_tokens": 17,
+        "mean_accepted_per_round": 2.76,
+        "tokens_per_target_pass": 3.76,
+        "acceptance_rate": 0.691,
+        "draft_token_fraction": 0.734,
+        "prompt_type": "structured"
+      },
+      {
+        "output_tokens": 64,
+        "ttft_ms": 132.3,
+        "tpot_ms": 10.35,
+        "throughput_tps": 96.6,
+        "peak_mem_mb": 2898.4,
+        "k": 4,
+        "accepted_draft": 40,
+        "target_tokens": 24,
+        "mean_accepted_per_round": 1.67,
+        "tokens_per_target_pass": 2.67,
+        "acceptance_rate": 0.417,
+        "draft_token_fraction": 0.625,
+        "prompt_type": "factual"
+      },
+      {
+        "output_tokens": 64,
+        "ttft_ms": 133.9,
+        "tpot_ms": 14.14,
+        "throughput_tps": 70.7,
+        "peak_mem_mb": 2913.6,
+        "k": 4,
+        "accepted_draft": 31,
+        "target_tokens": 33,
+        "mean_accepted_per_round": 0.94,
+        "tokens_per_target_pass": 1.94,
+        "acceptance_rate": 0.235,
+        "draft_token_fraction": 0.484,
+        "prompt_type": "creative"
+      }
+    ],
+    "draft_compare": [
+      {
+        "output_tokens": 64,
+        "ttft_ms": 134.8,
+        "tpot_ms": 10.34,
+        "throughput_tps": 96.7,
+        "peak_mem_mb": 2898.4,
+        "k": 4,
+        "accepted_draft": 40,
+        "target_tokens": 24,
+        "mean_accepted_per_round": 1.67,
+        "tokens_per_target_pass": 2.67,
+        "acceptance_rate": 0.417,
+        "draft_token_fraction": 0.625,
+        "draft": "0.5B"
+      },
+      {
+        "output_tokens": 64,
+        "ttft_ms": 156.6,
+        "tpot_ms": 10.77,
+        "throughput_tps": 92.8,
+        "peak_mem_mb": 2902.4,
+        "k": 4,
+        "accepted_draft": 45,
+        "target_tokens": 19,
+        "mean_accepted_per_round": 2.37,
+        "tokens_per_target_pass": 3.37,
+        "acceptance_rate": 0.592,
+        "draft_token_fraction": 0.703,
+        "draft": "1.5B"
+      }
+    ]
+  },
+  "detail_target": "Qwen2.5-3B",
+  "combos_target": "Qwen2.5-3B",
+  "combos": [
+    {
+      "model": "Qwen2.5-3B",
+      "precision": "bf16",
+      "kv": "off",
+      "spec": false,
+      "label": "No optimization (bf16)",
+      "throughput_tps": 43.6,
+      "tpot_ms": 22.95,
+      "peak_mem_mb": 7855.1
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": false,
+      "label": "Quantized to 4-bit",
+      "throughput_tps": 128.7,
+      "tpot_ms": 7.77,
+      "peak_mem_mb": 2063.8
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": false,
+      "label": "+ KV-cache quant",
+      "throughput_tps": 115.2,
+      "tpot_ms": 8.68,
+      "peak_mem_mb": 2063.8
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": true,
+      "label": "+ Speculative",
+      "throughput_tps": 96.4,
+      "tpot_ms": 10.37,
+      "peak_mem_mb": 2067.1
+    },
+    {
+      "model": "Qwen2.5-3B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": true,
+      "label": "+ KV + Speculative (all)",
+      "throughput_tps": 39.5,
+      "tpot_ms": 25.33,
+      "peak_mem_mb": 2064.9
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "precision": "bf16",
+      "kv": "off",
+      "spec": false,
+      "label": "No optimization (bf16)",
+      "throughput_tps": 41.0,
+      "tpot_ms": 24.4,
+      "peak_mem_mb": 8575.5
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": false,
+      "label": "Quantized to 4-bit",
+      "throughput_tps": 130.0,
+      "tpot_ms": 7.69,
+      "peak_mem_mb": 2575.0
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": false,
+      "label": "+ KV-cache quant",
+      "throughput_tps": 123.1,
+      "tpot_ms": 8.12,
+      "peak_mem_mb": 2575.0
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": true,
+      "label": "+ Speculative",
+      "throughput_tps": 123.3,
+      "tpot_ms": 8.11,
+      "peak_mem_mb": 2581.8
+    },
+    {
+      "model": "Llama-3.2-3B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": true,
+      "label": "+ KV + Speculative (all)",
+      "throughput_tps": 112.8,
+      "tpot_ms": 8.87,
+      "peak_mem_mb": 2578.2
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "precision": "bf16",
+      "kv": "off",
+      "spec": false,
+      "label": "No optimization (bf16)",
+      "throughput_tps": 82.1,
+      "tpot_ms": 12.18,
+      "peak_mem_mb": 4097.0
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": false,
+      "label": "Quantized to 4-bit",
+      "throughput_tps": 234.8,
+      "tpot_ms": 4.26,
+      "peak_mem_mb": 1209.7
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": false,
+      "label": "+ KV-cache quant",
+      "throughput_tps": 214.4,
+      "tpot_ms": 4.66,
+      "peak_mem_mb": 1209.7
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "precision": "int4",
+      "kv": "off",
+      "spec": true,
+      "label": "+ Speculative",
+      "throughput_tps": 161.8,
+      "tpot_ms": 6.18,
+      "peak_mem_mb": 1213.1
+    },
+    {
+      "model": "Qwen2.5-1.5B",
+      "precision": "int4",
+      "kv": 4,
+      "spec": true,
+      "label": "+ KV + Speculative (all)",
+      "throughput_tps": 89.9,
+      "tpot_ms": 11.12,
+      "peak_mem_mb": 1210.9
+    }
+  ],
+  "kv_cache_detail": {
+    "model": "Qwen2.5-3B",
+    "weights_mb": 1736.0,
+    "points": [
+      {
+        "ctx": "~2k",
+        "tokens": 601,
+        "full_mb": 213.4,
+        "q4_mb": 28.3,
+        "saving_pct": 87.0
+      },
+      {
+        "ctx": "~4k",
+        "tokens": 1201,
+        "full_mb": 417.1,
+        "q4_mb": 47.2,
+        "saving_pct": 89.0
+      },
+      {
+        "ctx": "~8k",
+        "tokens": 2401,
+        "full_mb": 833.8,
+        "q4_mb": 94.4,
+        "saving_pct": 89.0
+      }
+    ]
+  },
+  "kv_precision": {
+    "model": "Qwen2.5-3B",
+    "context_tokens": 1941,
+    "gen_tokens": 120,
+    "rows": [
+      {
+        "kv": "full",
+        "bits": 16,
+        "mem_pct": 100,
+        "fidelity": 1.0
+      },
+      {
+        "kv": 8,
+        "bits": 8,
+        "mem_pct": 50,
+        "fidelity": 1.0
+      },
+      {
+        "kv": 4,
+        "bits": 4,
+        "mem_pct": 25,
+        "fidelity": 0.058
+      }
+    ]
+  },
+  "combos_models": [
+    "Qwen2.5-3B",
+    "Llama-3.2-3B",
+    "Qwen2.5-1.5B"
+  ]
+}

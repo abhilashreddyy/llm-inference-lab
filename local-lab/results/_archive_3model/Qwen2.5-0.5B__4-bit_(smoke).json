@@ -1,0 +1,83 @@
+{
+  "label": "Qwen2.5-0.5B \u00b7 4-bit (smoke)",
+  "model": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+  "family": "other",
+  "kind": "general",
+  "params_b": null,
+  "system": {
+    "load_time_s": 0.51,
+    "weights_peak_mem_mb": 268.1,
+    "disk_mb": 276.2
+  },
+  "speed": {
+    "ttft_ms": 95.5,
+    "tpot_ms": 8.71,
+    "decode_tps": 114.8
+  },
+  "perplexity": 79.8807,
+  "tasks": {
+    "humaneval": {
+      "task": "humaneval",
+      "n": 3,
+      "passed": 2,
+      "pass@1": 0.6667,
+      "examples": [
+        {
+          "idx": 0,
+          "question": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+          "answer": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False",
+          "entry_point": "has_close_elements",
+          "correct": true
+        },
+        {
+          "idx": 1,
+          "question": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+          "answer": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n    result = []\n    i = 0\n    while i < len(paren_string):\n        if paren_string[i] == '(':\n            j = i\n            while j < len(paren_string) and paren_string[j] != ')':\n                j += 1\n            if j < len(paren_string) and paren_string[j] == ')':\n                result.append(paren_string[i:j])\n                i = j\n    return result",
+          "entry_point": "separate_paren_groups",
+          "correct": false
+        },
+        {
+          "idx": 2,
+          "question": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+          "answer": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    # Calculate the decimal part of the number\n    decimal_part = abs(number - int(number))\n    return decimal_part",
+          "entry_point": "truncate_number",
+          "correct": true
+        }
+      ],
+      "seconds": 20.2
+    },
+    "gsm8k": {
+      "task": "gsm8k",
+      "n": 3,
+      "correct": 0,
+      "accuracy": 0.0,
+      "examples": [
+        {
+          "idx": 0,
+          "question": "Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?",
+          "answer": "To determine how much Janet makes every day at the farmers' market, we need to calculate her daily earnings from selling eggs and subtract the cost of the eggs.\n\n1. **Daily Egg Production:**\n   Janet lays 16 eggs per day.\n\n2. **Daily Egg Consumption:**\n   She eats 3 eggs per day for breakfast and bakes 4 muffins per day.\n\n3. **Daily Earnings:**\n   She sells each egg for $2.\n\n4. **Daily Earnings from Eggs:**\n   \\[\n   \\text{Daily Earnings} = \\text{Number of Eggs} \\times \\text{Price per Egg}\n   \\]\n   \\[\n   \\text{Daily Earnings} = 16 \\times 2 = 32 \\text{ dollars}\n   \\]\n\n5. **Daily Cost of Eggs:**\n   \\[\n   \\text{Daily Cost} = \\text{Number of Eggs} \\times \\text{Price per Egg}\n   \\]\n   \\[\n   \\text{Daily Cost} = 16 \\times 2 = 32 \\text{ dollars}\n   \\]\n\n6. **Daily Net Earnings:**\n   \\[\n   \\text{Daily Net Earnings} = \\text{Daily Earnings} - \\text{Daily Cost}\n   \\]\n   \\[\n   \\text{Daily Net Earnings} = 32 - 32 = 0 \\text{ dollars}\n   \\]\n\nSince she does not make any additional money from selling the eggs, her net earnings are zero.\n\nTherefore, the answer is <number>0</number>.",
+          "predicted": "0",
+          "gold": "18",
+          "correct": false
+        },
+        {
+          "idx": 1,
+          "question": "A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?",
+          "answer": "Let's denote the number of bolts of blue fiber as \\( B \\). According to the problem, the number of bolts of white fiber is half of the number of bolts of blue fiber, which can be expressed as \\( \\frac{1}{2} B \\). The total number of bolts required is the sum of the blue and white fiber bolts, which is \\( B + \\frac{1}{2} B \\). This can be simplified to \\( \\frac{3}{2} B \\). Since the problem does not specify the number of bolts of blue fiber, we can assume that the number of bolts of blue fiber is a whole number, so \\( B \\) must be a whole number. Therefore, \\( \\frac{3}{2} B \\) must be a whole number, which means \\( B \\) must be a multiple of 3. The smallest multiple of 3 is 3 itself, so \\( B = 3 \\). Therefore, the number of bolts of blue fiber is 3, and the number of bolts of white fiber is \\( \\frac{1}{2} \\times 3 = 1.5 \\). Since the number of bolts must be a whole number, we round 1.5 to the nearest whole number, which is 2. Therefore, the number of bolts of blue fiber is 3, and the number of bolts of white fiber is 2. The total number of bolts is \\( 3 + 2 = 5 \\). Thus, the answer is 5.\n\nThe answer is 5.",
+          "predicted": "5",
+          "gold": "3",
+          "correct": false
+        },
+        {
+          "idx": 2,
+          "question": "Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?",
+          "answer": "To determine the profit Josh made from the house, we need to follow these steps:\n\n1. Calculate the total cost of the house.\n2. Calculate the total value of the house after repairs.\n3. Calculate the total cost of the house including the repairs.\n4. Calculate the total value of the house including the repairs.\n5. Calculate the total profit by subtracting the initial cost from the total value.\n\nLet's start with the initial cost of the house:\n- Josh buys the house for $80,000.\n\nNext, we add the cost of the repairs:\n- Josh puts in $50,000 in repairs.\n\nSo, the total cost of the house is:\n- Initial cost: $80,000\n- Repairs: $50,000\n- Total cost: $80,000 + $50,000 = $130,000\n\nNow, we calculate the total value of the house after repairs:\n- Initial cost: $80,000\n- Repairs: $50,000\n- Total value: $80,000 + $50,000 = $130,000\n\nNext, we calculate the total cost of the house including the repairs:\n- Initial cost: $80,000\n- Repairs: $50,000\n- Total cost: $80,000 + $50,000 = $130,000\n\nThen, we calculate the total value of the house including the repairs:\n- Initial cost: $80,000\n- Repairs: $50,000\n- Total value: $80,000 + $50,000 = $130,000\n\nFinally, we calculate the total profit:\n- Initial cost: $8",
+          "predicted": "0",
+          "gold": "70000",
+          "correct": false
+        }
+      ],
+      "seconds": 2.8
+    }
+  }
+}

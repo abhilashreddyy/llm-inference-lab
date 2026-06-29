@@ -1,0 +1,33 @@
+# STUDY 2 — Speculative decoding.
+# A small draft model (0.5B) proposes tokens; the 7B target verifies them in
+# parallel. When the draft is right, you get multiple tokens per target pass ->
+# faster decode at identical output. Acceptance % shows how often the draft is right.
+workload:
+  num_requests: 12
+  concurrency: 1
+  max_output_tokens: 160
+  prompts:
+    - "Explain how a transformer neural network works, step by step."
+    - "Write a Python function that returns the nth Fibonacci number, with comments."
+    - "Summarize the causes of the 2008 financial crisis in one paragraph."
+    - "What are the trade-offs between latency and throughput in LLM serving?"
+cost:
+  price_per_hour: null
+
+runs:
+  - label: "7B 4-bit · no speculation (baseline)"
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: speculative
+    params: { draft: none }
+
+  - label: "7B 4-bit + 0.5B draft · 4 tokens"
+    engine: mlx
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    quant: int4
+    study: speculative
+    params: { draft: "Qwen2.5-0.5B-4bit", num_draft_tokens: 4 }
+    engine_args:
+      draft_model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+      num_draft_tokens: 4

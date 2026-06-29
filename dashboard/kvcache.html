@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KV-cache quant — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+    <header class="hero"><div class="hero-text">
+      <h1>KV-cache quantization</h1>
+      <p class="tagline">The model's "short-term memory" grows with context. Quantizing it saves memory — and the saving grows the longer the context. Compared across models.</p>
+      <div id="mode-badge" class="badges"></div>
+    </div></header>
+
+    <div id="pending" class="card empty">Experiments haven't been run yet. Run <code>./scripts/dev.sh</code> — this page fills in then.</div>
+
+    <div id="body" hidden>
+      <section class="card">
+        <h2>Memory saved by 4-bit KV at long context (per model)</h2>
+        <p class="muted">At the longest context tested, how much GPU memory does 4-bit KV cache save vs full precision?</p>
+        <div id="kv-cards" class="metric-row"></div>
+        <div data-info-corner="kv_quant"><h3>Peak memory at longest context: full vs quantized KV (per model)</h3><canvas id="kv-xm"></canvas></div>
+      </section>
+      <section class="card">
+        <h2>The saving grows with context</h2>
+        <p class="muted">At short context the weights dominate, so KV quant barely helps. As context grows, the cache — and the saving — grows.</p>
+        <div data-info-corner="kv_cache"><h3>Peak memory vs context length</h3><canvas id="kv-growth"></canvas></div>
+        <div class="analysis" id="kv-analysis"></div>
+      </section>
+    </div>
+  </div>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="kvcache.js"></script>
+</body>
+</html>

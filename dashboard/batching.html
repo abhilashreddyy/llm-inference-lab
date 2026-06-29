@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batching — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+    <header class="hero"><div class="hero-text">
+      <h1>Static batching</h1>
+      <p class="tagline">Decoding many sequences at once fills the GPU that sits idle at batch 1. Throughput climbs, per-request speed drops, memory grows — compared across models.</p>
+      <div id="mode-badge" class="badges"></div>
+    </div></header>
+
+    <div id="pending" class="card empty">Experiments haven't been run yet. Run <code>./scripts/dev.sh</code> — this page fills in then.</div>
+
+    <div id="body" hidden>
+      <section class="card">
+        <div id="b-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="batching"><h3>Aggregate throughput vs batch size (per model)</h3><canvas id="b-agg"></canvas></div>
+          <div data-info-corner="tpot"><h3>Per-stream throughput vs batch size</h3><canvas id="b-stream"></canvas></div>
+        </div>
+        <div data-info-corner="gpu_memory"><h3>Peak GPU memory vs batch size (per model)</h3><canvas id="b-mem"></canvas></div>
+        <div class="analysis" id="b-analysis"></div>
+      </section>
+    </div>
+  </div>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="batching.js"></script>
+</body>
+</html>

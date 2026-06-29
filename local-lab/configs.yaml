@@ -1,0 +1,74 @@
+# Local quality lab — size-spectrum comparison: ~5 models in the 7-9B class and
+# ~7 in the 1.5-3.8B class, general + coding. All 4-bit via MLX, coding (HumanEval)
+# + math (GSM8K). Already-completed models are skipped on re-run.
+eval:
+  gsm8k_n: 100        # math problems (sample of GSM8K's 1319)
+  humaneval_n: 164    # full HumanEval
+  n_examples: 6       # transcripts captured per task per model (Examples page)
+  run_math: true
+  run_coding: true
+
+configs:
+  # ---------- 7-9B class ----------
+  - label: "Qwen2.5-7B"
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit
+    family: Qwen
+    kind: general
+    params_b: 7
+  - label: "Llama-3.1-8B"
+    model: mlx-community/Meta-Llama-3.1-8B-Instruct-4bit
+    family: Llama
+    kind: general
+    params_b: 8
+  - label: "Mistral-7B"
+    model: mlx-community/Mistral-7B-Instruct-v0.3-4bit
+    family: Mistral
+    kind: general
+    params_b: 7
+  - label: "Gemma-2-9B"
+    model: mlx-community/gemma-2-9b-it-4bit
+    family: Gemma
+    kind: general
+    params_b: 9
+  - label: "Qwen2.5-Coder-7B"
+    model: mlx-community/Qwen2.5-Coder-7B-Instruct-4bit
+    family: Qwen
+    kind: coding
+    params_b: 7
+
+  # ---------- 1.5-3.8B class ----------
+  - label: "Qwen2.5-3B"
+    model: mlx-community/Qwen2.5-3B-Instruct-4bit
+    family: Qwen
+    kind: general
+    params_b: 3
+  - label: "Llama-3.2-3B"
+    model: mlx-community/Llama-3.2-3B-Instruct-4bit
+    family: Llama
+    kind: general
+    params_b: 3
+  - label: "Gemma-2-2B"
+    model: mlx-community/gemma-2-2b-it-4bit
+    family: Gemma
+    kind: general
+    params_b: 2
+  - label: "Phi-3.5-mini"
+    model: mlx-community/Phi-3.5-mini-instruct-4bit
+    family: Phi
+    kind: general
+    params_b: 3.8
+  - label: "Qwen2.5-1.5B"
+    model: mlx-community/Qwen2.5-1.5B-Instruct-4bit
+    family: Qwen
+    kind: general
+    params_b: 1.5
+  - label: "Qwen2.5-Coder-3B"
+    model: mlx-community/Qwen2.5-Coder-3B-Instruct-4bit
+    family: Qwen
+    kind: coding
+    params_b: 3
+  - label: "Qwen2.5-Coder-1.5B"
+    model: mlx-community/Qwen2.5-Coder-1.5B-Instruct-4bit
+    family: Qwen
+    kind: coding
+    params_b: 1.5

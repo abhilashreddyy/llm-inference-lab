@@ -1,0 +1,42 @@
+# Fast validation of all new study code paths with the tiny 0.5B model.
+workload:
+  num_requests: 3
+  concurrency: 1
+  max_output_tokens: 24
+  prompt_repeat: 4
+  prompts:
+    - "What is 2 + 2?"
+cost:
+  price_per_hour: null
+runs:
+  - label: "smoke quant+quality"
+    engine: mlx
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    quant: int4
+    study: quantization
+    params: { bits: 4 }
+    measure_quality: true
+
+  - label: "smoke kv 8-bit"
+    engine: mlx
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    quant: int4
+    study: kv_cache
+    params: { kv_bits: 8 }
+    engine_args: { kv_bits: 8, quantized_kv_start: 0 }
+
+  - label: "smoke speculative"
+    engine: mlx
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    quant: int4
+    study: speculative
+    params: { draft: self }
+    engine_args: { draft_model: mlx-community/Qwen2.5-0.5B-Instruct-4bit, num_draft_tokens: 4 }
+
+  - label: "smoke batch"
+    mode: batch
+    engine: mlx
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    quant: int4
+    study: batching
+    batch_sizes: [1, 4]

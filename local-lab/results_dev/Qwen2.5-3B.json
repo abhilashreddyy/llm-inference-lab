@@ -1,0 +1,98 @@
+{
+  "label": "Qwen2.5-3B",
+  "model": "mlx-community/Qwen2.5-3B-Instruct-4bit",
+  "family": "Qwen",
+  "kind": "general",
+  "params_b": 3,
+  "system": {
+    "load_time_s": 72.16,
+    "weights_peak_mem_mb": 1655.8,
+    "disk_mb": 1666.9
+  },
+  "speed": {
+    "ttft_ms": 103.8,
+    "tpot_ms": 7.66,
+    "decode_tps": 130.6
+  },
+  "perplexity": 50.0918,
+  "tasks": {
+    "humaneval": {
+      "task": "humaneval",
+      "n": 5,
+      "passed": 4,
+      "pass@1": 0.8,
+      "examples": [
+        {
+          "idx": 0,
+          "question": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+          "answer": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    numbers.sort()\n    for i in range(1, len(numbers)):\n        if numbers[i] - numbers[i - 1] < threshold:\n            return True\n    return False",
+          "entry_point": "has_close_elements",
+          "correct": true
+        },
+        {
+          "idx": 1,
+          "question": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+          "answer": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n    result = []\n    stack = []\n    for char in paren_string:\n        if char == '(':\n            stack.append(char)\n        elif char == ')' and stack:\n            result.append(''.join(stack))\n            stack = []\n    return result",
+          "entry_point": "separate_paren_groups",
+          "correct": false
+        },
+        {
+          "idx": 2,
+          "question": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+          "answer": "def truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n    integer_part = int(number)\n    decimal_part = number - integer_part\n    return decimal_part",
+          "entry_point": "truncate_number",
+          "correct": true
+        },
+        {
+          "idx": 3,
+          "question": "from typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n",
+          "answer": "from typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account falls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False",
+          "entry_point": "below_zero",
+          "correct": true
+        }
+      ],
+      "seconds": 6.4
+    },
+    "gsm8k": {
+      "task": "gsm8k",
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1.0,
+      "examples": [
+        {
+          "idx": 0,
+          "question": "Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?",
+          "answer": "To determine how much Janet makes every day at the farmers' market, we need to follow these steps:\n\n1. **Calculate the total number of eggs laid per day:**\n   Janet's ducks lay 16 eggs per day.\n\n2. **Determine the number of eggs used for breakfast:**\n   Janet eats 3 eggs for breakfast every morning.\n\n3. **Calculate the number of eggs used for muffins:**\n   Janet bakes muffins with 4 eggs every day.\n\n4. **Calculate the total number of eggs used for breakfast and muffins:**\n   \\[\n   3 \\text{ (for breakfast)} + 4 \\text{ (for muffins)} = 7 \\text{ eggs}\n   \\]\n\n5. **Calculate the number of eggs remaining for sale:**\n   Subtract the number of eggs used from the total number of eggs laid:\n   \\[\n   16 \\text{ (total eggs)} - 7 \\text{ (used eggs)} = 9 \\text{ eggs}\n   \\]\n\n6. **Determine the revenue from selling the remaining eggs:**\n   Janet sells the remaining eggs at $2 per egg:\n   \\[\n   9 \\text{ eggs} \\times 2 \\text{ dollars per egg} = 18 \\text{ dollars}\n   \\]\n\nTherefore, Janet makes \\(\\boxed{18}\\) dollars every day at the farmers' market.",
+          "predicted": "18",
+          "gold": "18",
+          "correct": true
+        },
+        {
+          "idx": 1,
+          "question": "A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?",
+          "answer": "To solve this problem, we need to determine the total number of bolts of fiber required for the robe based on the given information.\n\n1. **Identify the amount of blue fiber needed:**\n   - The robe takes 2 bolts of blue fiber.\n\n2. **Determine the amount of white fiber needed:**\n   - The robe takes half as much white fiber as blue fiber.\n   - Therefore, the amount of white fiber is \\( \\frac{1}{2} \\times 2 \\) bolts.\n\n3. **Calculate the amount of white fiber:**\n   - \\( \\frac{1}{2} \\times 2 = 1 \\) bolt.\n\n4. **Sum the total amount of fiber:**\n   - Total bolts of fiber = bolts of blue fiber + bolts of white fiber\n   - Total bolts of fiber = 2 bolts (blue) + 1 bolt (white)\n   - Total bolts of fiber = 3 bolts.\n\nTherefore, the robe takes a total of 3 bolts of fiber.\n\nThe answer is 3.",
+          "predicted": "3",
+          "gold": "3",
+          "correct": true
+        },
+        {
+          "idx": 2,
+          "question": "Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?",
+          "answer": "To determine Josh's profit, we need to follow these steps:\n\n1. **Calculate the total cost of the house and repairs:**\n   - Josh initially buys the house for $80,000.\n   - He then spends an additional $50,000 on repairs.\n   - Therefore, the total cost is:\n     \\[\n     80,000 + 50,000 = 130,000\n     \\]\n\n2. **Determine the increase in the house's value:**\n   - The house's value increases by 150%.\n   - To find 150% of the original value, we calculate:\n     \\[\n     150\\% \\text{ of } 80,000 = 1.5 \\times 80,000 = 120,000\n     \\]\n\n3. **Calculate the new value of the house:**\n   - The original value of the house was $80,000.\n   - The increase is $120,000.\n   - Therefore, the new value is:\n     \\[\n     80,000 + 120,000 = 200,000\n     \\]\n\n4. **Calculate the profit:**\n   - The profit is the difference between the new value of the house and the total cost.\n   - The new value is $200,000.\n   - The total cost is $130,000.\n   - Therefore, the profit is:\n     \\[\n     200,000 - 130,000 = 70,000\n     \\]\n\nThus, Josh made a profit of $70,000.\n\nThe answer is 70000.",
+          "predicted": "70000",
+          "gold": "70000",
+          "correct": true
+        },
+        {
+          "idx": 3,
+          "question": "James decides to run 3 sprints 3 times a week.  He runs 60 meters each sprint.  How many total meters does he run a week?",
+          "answer": "To solve this problem, we need to determine the total distance James runs in a week based on the details provided.\n\n1. **Determine the distance James runs in one sprint:**\n   - James runs 60 meters in each sprint.\n\n2. **Calculate the total distance for one session of sprints:**\n   - James runs 3 sprints each session.\n   - Distance for one session = 3 sprints * 60 meters per sprint = 180 meters.\n\n3. **Determine the number of sessions James runs in a week:**\n   - James runs 3 times a week.\n\n4. **Calculate the total distance James runs in a week:**\n   - Total distance = Number of sessions * Distance per session\n   - Total distance = 3 sessions * 180 meters per session = 540 meters.\n\nTherefore, the total distance James runs in a week is 540 meters.\n\nThe answer is 540.",
+          "predicted": "540",
+          "gold": "540",
+          "correct": true
+        }
+      ],
+      "seconds": 12.6
+    }
+  }
+}

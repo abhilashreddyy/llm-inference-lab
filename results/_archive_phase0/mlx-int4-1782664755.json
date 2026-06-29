@@ -1,0 +1,139 @@
+{
+  "manifest": {
+    "run_id": "mlx-int4-1782664755",
+    "label": "smoke speculative",
+    "engine": "mlx",
+    "model": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+    "quant": "int4",
+    "dtype": "int4",
+    "device": "mps (Metal/MLX)",
+    "concurrency": 1,
+    "num_requests": 3,
+    "max_output_tokens": 24,
+    "load_time_s": 0.63,
+    "hardware": {
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "cpu": "arm",
+      "python": "3.13.13",
+      "chip": "Apple M5 Pro",
+      "memory_gb": 24.0
+    },
+    "versions": {
+      "torch": "2.12.1",
+      "transformers": "5.12.1",
+      "mlx_lm": "0.31.3",
+      "mlx": "0.31.2"
+    },
+    "git_commit": "n/a",
+    "timestamp": "2026-06-28T16:39:15+00:00",
+    "study": "speculative",
+    "params": {
+      "draft": "self"
+    },
+    "price_per_hour": null
+  },
+  "aggregates": {
+    "requests_ok": 3,
+    "requests_failed": 0,
+    "wall_clock_s": 0.484,
+    "total_input_tokens": 186,
+    "total_output_tokens": 72,
+    "system_throughput_tps": 148.76,
+    "requests_per_s": 6.198,
+    "decode_tps_per_req": {
+      "p50": 319.768,
+      "p90": 322.757,
+      "p99": 323.429,
+      "mean": 319.606
+    },
+    "ttft_ms": {
+      "p50": 88.924,
+      "p90": 89.611,
+      "p99": 89.766,
+      "mean": 89.149
+    },
+    "tpot_ms": {
+      "p50": 3.127,
+      "p90": 3.161,
+      "p99": 3.168,
+      "mean": 3.129
+    },
+    "e2e_ms": {
+      "p50": 160.851,
+      "p90": 162.309,
+      "p99": 162.637,
+      "mean": 161.12
+    },
+    "compute": {
+      "peak_rss_mb": 1063.7,
+      "mean_cpu_pct": 91.8,
+      "peak_cpu_pct": 99.3,
+      "peak_accel_mem_mb": 546.5,
+      "mean_gpu_util_pct": null,
+      "mean_gpu_power_w": null,
+      "samples": 2
+    },
+    "cost_per_1m_tokens_usd": null,
+    "draft_acceptance": 0.8295
+  },
+  "requests": [
+    {
+      "request_id": 0,
+      "prompt_tokens": 62,
+      "output_tokens": 24,
+      "ttft_s": 0.08874025000841357,
+      "e2e_s": 0.15983679200871848,
+      "tpot_s": 0.003091154000013257,
+      "decode_tps": 323.50377884625334,
+      "start_ts": 1782664755.4625459,
+      "end_ts": 1782664755.622387,
+      "ok": true,
+      "error": null
+    },
+    {
+      "request_id": 1,
+      "prompt_tokens": 62,
+      "output_tokens": 24,
+      "ttft_s": 0.0889243750134483,
+      "e2e_s": 0.1608514590188861,
+      "tpot_s": 0.0031272645219755564,
+      "decode_tps": 319.768280864287,
+      "start_ts": 1782664755.622405,
+      "end_ts": 1782664755.7832599,
+      "ok": true,
+      "error": null
+    },
+    {
+      "request_id": 2,
+      "prompt_tokens": 62,
+      "output_tokens": 24,
+      "ttft_s": 0.08978316700085998,
+      "e2e_s": 0.16267300001345575,
+      "tpot_s": 0.0031691231744606857,
+      "decode_tps": 315.5446932636747,
+      "start_ts": 1782664755.7832692,
+      "end_ts": 1782664755.945945,
+      "ok": true,
+      "error": null
+    }
+  ],
+  "compute": [
+    {
+      "t": 0.0,
+      "rss_mb": 1062.9,
+      "cpu_pct": 99.3,
+      "accel_mem_mb": 536.3,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.255,
+      "rss_mb": 1063.7,
+      "cpu_pct": 84.4,
+      "accel_mem_mb": 546.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    }
+  ]
+}

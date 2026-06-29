@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Optimizations — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+    <header class="hero"><div class="hero-text">
+      <h1>Optimizations</h1>
+      <p class="tagline">Start with the Overview to see techniques combined into the best stack, then dig into each optimization compared across models.</p>
+    </div></header>
+
+    <div class="subtabs" id="subtabs">
+      <button data-tab="explorer" class="active">⚡ Overview</button>
+      <button data-tab="speculative">Speculative</button>
+      <button data-tab="kvcache">KV-cache</button>
+      <button data-tab="batching">Batching</button>
+      <button data-tab="quantization">Quantization</button>
+    </div>
+
+    <!-- EXPLORER -->
+    <div class="panel" id="panel-explorer">
+      <section class="card">
+        <div class="exp-head">
+          <h2>How much did optimizations help?</h2>
+          <label class="selwrap">Model <select id="exp-model-select"></select></label>
+        </div>
+        <div id="exp-baseline" class="callout"></div>
+        <div id="exp-cards" class="metric-row"></div>
+        <div data-info-corner="throughput"><h3>Speed vs memory, by optimization stack (right = faster · lower = less memory · bottom-right is best)</h3><canvas id="exp-scatter"></canvas></div>
+        <div class="table-scroll"><table id="exp-table"></table></div>
+        <div class="analysis" id="exp-analysis"></div>
+      </section>
+    </div>
+
+    <!-- SPECULATIVE -->
+    <div class="panel" id="panel-speculative" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Speculative decoding — across models</h2><div class="modelpop" id="spec-modelpop"></div></div>
+        <p class="muted">A small draft guesses ahead; the big model verifies in one pass. Speedup needs a cheap draft that's often right.</p>
+        <div id="spec-xm-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="speculative"><h3>Throughput: without vs with speculation (tok/s)</h3><canvas id="spec-xm-speedup"></canvas></div>
+          <div data-info-corner="acceptance"><h3>Draft acceptance rate (%)</h3><canvas id="spec-xm-accept"></canvas></div>
+        </div>
+        <div class="table-scroll"><table id="spec-xm-table"></table></div>
+        <div class="analysis" id="spec-xm-analysis"></div>
+      </section>
+      <section class="card" id="spec-detail-card">
+        <div class="card-head">
+          <h2>Deep dive: <span id="spec-detail-target"></span></h2>
+          <label class="selwrap">Model <select id="spec-detail-select"></select></label>
+        </div>
+        <div class="story" id="spec-story"></div>
+        <div id="spec-k-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Acceptance &amp; tokens/target-pass vs k</h3><canvas id="spec-kacc"></canvas></div>
+          <div data-info-corner="throughput"><h3>Throughput vs k</h3><canvas id="spec-ktps"></canvas></div>
+        </div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Token source (best k)</h3><canvas id="spec-donut"></canvas></div>
+          <div data-info-corner="acceptance"><h3>Acceptance by prompt type</h3><canvas id="spec-prompt"></canvas></div>
+        </div>
+        <div class="analysis" id="spec-detail-analysis"></div>
+      </section>
+    </div>
+
+    <!-- KV-CACHE -->
+    <div class="panel" id="panel-kvcache" hidden>
+      <section class="card">
+        <div class="card-head"><h2>KV-cache quantization — does it actually help?</h2><label class="selwrap">Model <select id="kv-detail-select"></select></label></div>
+        <div class="callout" id="kv-explain"></div>
+        <div id="kvc-cards" class="metric-row"></div>
+        <div data-info-corner="kv_cache"><h3 id="kv-cache-detail-title">The KV cache itself: memory vs context — full vs 4-bit</h3><canvas id="kv-cache-detail"></canvas></div>
+        <div data-info-corner="kv_cache"><h3>At scale the cache overtakes the weights (measured → projected)</h3><canvas id="kv-scale"></canvas></div>
+        <div class="analysis" id="kvc-analysis"></div>
+      </section>
+      <section class="card">
+        <h2>Precision trade-off: how low can you go?</h2>
+        <p class="muted">Quantizing the cache to fewer bits saves proportionally more memory — but at some point it wrecks the output. Memory is exact (bits ÷ 16); fidelity is measured (how much of the generated text still matches the full-precision run).</p>
+        <div id="kvp-cards" class="metric-row"></div>
+        <div data-info-corner="kv_quant"><h3 id="kv-precision-title">Cache memory vs output fidelity, by KV precision</h3><canvas id="kv-precision"></canvas></div>
+        <div class="analysis" id="kvp-analysis"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Across models — KV-cache footprint (exact, from config)</h2><div class="modelpop" id="kv-modelpop"></div></div>
+        <p class="muted">Computed directly from each model's architecture (layers × KV-heads × head-dim), so it's exact rather than a noisy measurement. Shows which models carry a heavier cache and how 8-/4-bit shrink it.</p>
+        <div data-info-corner="kv_quant"><h3>KV cache at 32k tokens: full vs 8-bit vs 4-bit (per model)</h3><canvas id="kv-xm"></canvas></div>
+        <div data-info-corner="kv_cache"><h3>Full KV cache vs context length (per model)</h3><canvas id="kv-growth"></canvas></div>
+        <div class="analysis" id="kv-analysis"></div>
+      </section>
+    </div>
+
+    <!-- BATCHING -->
+    <div class="panel" id="panel-batching" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Static batching — across models</h2><div class="modelpop" id="batch-modelpop"></div></div>
+        <p class="muted">Decoding many sequences at once fills the GPU; throughput climbs, per-request speed drops, memory grows.</p>
+        <div id="b-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="batching"><h3>Aggregate throughput vs batch size</h3><canvas id="b-agg"></canvas></div>
+          <div data-info-corner="tpot"><h3>Per-stream throughput vs batch size</h3><canvas id="b-stream"></canvas></div>
+        </div>
+        <div data-info-corner="gpu_memory"><h3>Peak GPU memory vs batch size</h3><canvas id="b-mem"></canvas></div>
+        <div class="analysis" id="b-analysis"></div>
+      </section>
+    </div>
+
+    <!-- QUANTIZATION -->
+    <div class="panel" id="panel-quantization" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Quantization — bf16 / 8-bit / 4-bit</h2><label class="selwrap">Model <select id="quant-select"></select></label></div>
+        <p class="muted">Same model at different precisions. Lower precision = faster &amp; smaller; perplexity shows the quality cost.</p>
+        <div id="quant-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="quantization"><h3>Speed vs quality (Pareto)</h3><canvas id="quant-pareto"></canvas></div>
+          <div data-info-corner="perplexity"><h3>Perplexity (lower better)</h3><canvas id="quant-ppl"></canvas></div>
+        </div>
+        <div class="grid-2">
+          <div data-info-corner="throughput"><h3>Throughput (tok/s)</h3><canvas id="quant-tps"></canvas></div>
+          <div data-info-corner="gpu_memory"><h3>GPU memory (MB)</h3><canvas id="quant-mem"></canvas></div>
+        </div>
+        <div class="analysis" id="quant-analysis"></div>
+      </section>
+    </div>
+
+  </div>
+  <script src="data.js"></script>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="opt.js"></script>
+</body>
+</html>

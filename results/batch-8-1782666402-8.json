@@ -1,0 +1,283 @@
+{
+  "manifest": {
+    "run_id": "batch-8-1782666402-8",
+    "label": "batch size 8",
+    "engine": "mlx",
+    "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "quant": "int4",
+    "dtype": "int4",
+    "device": "mps (Metal/MLX)",
+    "concurrency": 8,
+    "num_requests": 8,
+    "max_output_tokens": 128,
+    "load_time_s": 0.54,
+    "hardware": {
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "cpu": "arm",
+      "python": "3.13.13",
+      "chip": "Apple M5 Pro",
+      "memory_gb": 24.0
+    },
+    "versions": {
+      "torch": "2.12.1",
+      "transformers": "5.12.1",
+      "mlx_lm": "0.31.3",
+      "mlx": "0.31.2"
+    },
+    "git_commit": "n/a",
+    "timestamp": "2026-06-28T17:06:42+00:00",
+    "study": "batching",
+    "params": {
+      "batch_size": 8
+    },
+    "price_per_hour": null
+  },
+  "aggregates": {
+    "system_throughput_tps": 145.05,
+    "per_stream_tps": 18.13,
+    "total_output_tokens": 1024,
+    "wall_clock_s": 7.0597,
+    "compute": {
+      "peak_accel_mem_mb": 4302.9,
+      "peak_rss_mb": 4368.1,
+      "samples": 29
+    },
+    "cost_per_1m_tokens_usd": null
+  },
+  "requests": [],
+  "compute": [
+    {
+      "t": 0.0,
+      "rss_mb": 4367.5,
+      "cpu_pct": 92.0,
+      "accel_mem_mb": 4088.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.255,
+      "rss_mb": 4367.6,
+      "cpu_pct": 11.3,
+      "accel_mem_mb": 4302.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.508,
+      "rss_mb": 4367.8,
+      "cpu_pct": 37.2,
+      "accel_mem_mb": 4216.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.763,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.6,
+      "accel_mem_mb": 4216.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.018,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.273,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.529,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.9,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.784,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.039,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.291,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.547,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.4,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.8,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.2,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.055,
+      "rss_mb": 4368.1,
+      "cpu_pct": 5.9,
+      "accel_mem_mb": 4216.7,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.308,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.0,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.563,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 3.818,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 4.073,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.0,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 4.325,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.0,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 4.58,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.2,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 4.833,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 5.088,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.1,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 5.343,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 5.598,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.4,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 5.854,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 6.109,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 6.364,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 6.616,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 6.872,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.3,
+      "accel_mem_mb": 4218.0,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 7.127,
+      "rss_mb": 4368.1,
+      "cpu_pct": 6.2,
+      "accel_mem_mb": 4217.6,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    }
+  ]
+}

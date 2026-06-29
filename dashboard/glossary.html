@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glossary — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Glossary</h1>
+        <p class="tagline">Every term used in this project, in plain English. These same definitions pop up as tooltips on the info icons throughout the site.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <dl class="gloss" id="gloss"></dl>
+    </section>
+
+  </div>
+
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script>
+    (function () {
+      const g = window.GLOSSARY || {};
+      const order = Object.keys(g).sort((a, b) => g[a].term.localeCompare(g[b].term));
+      document.getElementById("gloss").innerHTML = order.map((k) => {
+        const learn = (g[k].learn || []).map((l) =>
+          `<a href="${l.url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">${l.title} ↗</a>`).join(" · ");
+        const learnHtml = learn ? `<div style="margin-top:6px;font-size:13px"><b>Learn more:</b> ${learn}</div>` : "";
+        return `<dt id="gloss-${k}">${g[k].term}</dt><dd>${g[k].overview}<br><span class="muted" style="display:block;margin-top:4px"><b>Deeper:</b> ${g[k].deeper}</span>${learnHtml}</dd>`;
+      }).join("");
+      // scroll to + flash the term when arriving via glossary.html#gloss-<key> (the list is built here,
+      // after the browser's own auto-scroll, so we do it ourselves — retried so timing can't miss it)
+      try { history.scrollRestoration = "manual"; } catch (e) {}
+      let _flashed = false;
+      function jump() {
+        const id = location.hash && decodeURIComponent(location.hash.slice(1));
+        const el = id && document.getElementById(id);
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (!_flashed) {
+          _flashed = true;
+          const dd = el.nextElementSibling;
+          [el, dd].forEach((n) => { if (n) { n.classList.remove("gloss-flash"); void n.offsetWidth; n.classList.add("gloss-flash"); } });
+        }
+      }
+      [0, 80, 250, 600].forEach((t) => setTimeout(jump, t));   // retry until layout settles
+      window.addEventListener("load", jump);
+      window.addEventListener("hashchange", () => { _flashed = false; jump(); });
+    })();
+  </script>
+</body>
+</html>

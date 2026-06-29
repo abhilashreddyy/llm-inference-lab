@@ -1,0 +1,57 @@
+# FULL-SMALL — optimization sweeps on the small models (<=3.8B), where EVERYTHING
+# fits on a 24GB machine: bf16 + int8 + int4 quant, full combo ladder, KV + batching.
+# Speculative decoding runs only where a same-family draft exists
+#   (Qwen2.5-3B/1.5B, Llama-3.2-3B). Gemma-2-2B and Phi-3.5-mini have no smaller
+#   sibling, so their speculative stacks are skipped automatically.
+mode: full
+max_tokens: 200
+reps: 5
+target_for_detail: "Qwen2.5-3B"
+
+models:
+  - { label: "Qwen2.5-3B",   model: mlx-community/Qwen2.5-3B-Instruct-4bit,   draft: mlx-community/Qwen2.5-0.5B-Instruct-4bit, draft_name: "Qwen 0.5B",  params_b: 3 }
+  - { label: "Qwen2.5-1.5B", model: mlx-community/Qwen2.5-1.5B-Instruct-4bit, draft: mlx-community/Qwen2.5-0.5B-Instruct-4bit, draft_name: "Qwen 0.5B",  params_b: 1.5 }
+  - { label: "Llama-3.2-3B", model: mlx-community/Llama-3.2-3B-Instruct-4bit, draft: mlx-community/Llama-3.2-1B-Instruct-4bit, draft_name: "Llama 1B",   params_b: 3 }
+  - { label: "Gemma-2-2B",   model: mlx-community/gemma-2-2b-it-4bit,                                                                                    params_b: 2 }
+  - { label: "Phi-3.5-mini", model: mlx-community/Phi-3.5-mini-instruct-4bit,                                                                           params_b: 3.8 }
+  - { label: "Qwen2.5-Coder-3B", model: mlx-community/Qwen2.5-Coder-3B-Instruct-4bit, draft: mlx-community/Qwen2.5-Coder-1.5B-Instruct-4bit, draft_name: "Coder 1.5B", params_b: 3 }
+
+spec:
+  k_sweep: [2, 4, 6, 8]
+  drafts_for_detail:
+    - { name: "0.5B", model: mlx-community/Qwen2.5-0.5B-Instruct-4bit }
+    - { name: "1.5B", model: mlx-community/Qwen2.5-1.5B-Instruct-4bit }
+
+batch:
+  max_tokens: 64
+  sizes: [1, 2, 4, 8, 16, 32]
+
+kv:
+  contexts_tokens: [2000, 4000, 8000, 16000, 32000, 64000, 128000]
+  fidelity_repeat: 150
+
+# combo ladder — all 5 fit bf16; spec stacks auto-skip where no draft (Gemma-2B, Phi)
+combos:
+  models:
+    - { label: "Qwen2.5-3B",   bf16: mlx-community/Qwen2.5-3B-Instruct-bf16,   int8: mlx-community/Qwen2.5-3B-Instruct-8bit,   int4: mlx-community/Qwen2.5-3B-Instruct-4bit,   draft: mlx-community/Qwen2.5-0.5B-Instruct-4bit }
+    - { label: "Qwen2.5-1.5B", bf16: mlx-community/Qwen2.5-1.5B-Instruct-bf16, int8: mlx-community/Qwen2.5-1.5B-Instruct-8bit, int4: mlx-community/Qwen2.5-1.5B-Instruct-4bit, draft: mlx-community/Qwen2.5-0.5B-Instruct-4bit }
+    - { label: "Llama-3.2-3B", bf16: mlx-community/Llama-3.2-3B-Instruct-bf16, int8: mlx-community/Llama-3.2-3B-Instruct-8bit, int4: mlx-community/Llama-3.2-3B-Instruct-4bit, draft: mlx-community/Llama-3.2-1B-Instruct-4bit }
+    - { label: "Gemma-2-2B",   bf16: mlx-community/gemma-2-2b-it-fp16,         int8: mlx-community/gemma-2-2b-it-8bit,         int4: mlx-community/gemma-2-2b-it-4bit }
+    - { label: "Phi-3.5-mini", bf16: mlx-community/Phi-3.5-mini-instruct-bf16, int8: mlx-community/Phi-3.5-mini-instruct-8bit, int4: mlx-community/Phi-3.5-mini-instruct-4bit }
+    - { label: "Qwen2.5-Coder-3B", bf16: mlx-community/Qwen2.5-Coder-3B-Instruct-bf16, int8: mlx-community/Qwen2.5-Coder-3B-Instruct-8bit, int4: mlx-community/Qwen2.5-Coder-3B-Instruct-4bit, draft: mlx-community/Qwen2.5-Coder-1.5B-Instruct-4bit }
+  stacks:
+    - { precision: bf16, kv: "off", spec: false, label: "No optimization (bf16)" }
+    - { precision: int8, kv: "off", spec: false, label: "Quantized to 8-bit" }
+    - { precision: int4, kv: "off", spec: false, label: "Quantized to 4-bit" }
+    - { precision: int4, kv: 4,   spec: false, label: "+ KV-cache quant" }
+    - { precision: int4, kv: "off", spec: true,  label: "+ Speculative" }
+    - { precision: int4, kv: 4,   spec: true,  label: "+ KV + Speculative (all)" }
+
+quant:
+  models:
+    - { label: "Qwen2.5-3B",   bf16: mlx-community/Qwen2.5-3B-Instruct-bf16,   int8: mlx-community/Qwen2.5-3B-Instruct-8bit,   int4: mlx-community/Qwen2.5-3B-Instruct-4bit }
+    - { label: "Qwen2.5-1.5B", bf16: mlx-community/Qwen2.5-1.5B-Instruct-bf16, int8: mlx-community/Qwen2.5-1.5B-Instruct-8bit, int4: mlx-community/Qwen2.5-1.5B-Instruct-4bit }
+    - { label: "Llama-3.2-3B", bf16: mlx-community/Llama-3.2-3B-Instruct-bf16, int8: mlx-community/Llama-3.2-3B-Instruct-8bit, int4: mlx-community/Llama-3.2-3B-Instruct-4bit }
+    - { label: "Gemma-2-2B",   bf16: mlx-community/gemma-2-2b-it-fp16,         int8: mlx-community/gemma-2-2b-it-8bit,         int4: mlx-community/gemma-2-2b-it-4bit }
+    - { label: "Phi-3.5-mini", bf16: mlx-community/Phi-3.5-mini-instruct-bf16, int8: mlx-community/Phi-3.5-mini-instruct-8bit, int4: mlx-community/Phi-3.5-mini-instruct-4bit }
+    - { label: "Qwen2.5-Coder-3B", bf16: mlx-community/Qwen2.5-Coder-3B-Instruct-bf16, int8: mlx-community/Qwen2.5-Coder-3B-Instruct-8bit, int4: mlx-community/Qwen2.5-Coder-3B-Instruct-4bit }

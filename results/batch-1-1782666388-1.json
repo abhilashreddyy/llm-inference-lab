@@ -1,0 +1,123 @@
+{
+  "manifest": {
+    "run_id": "batch-1-1782666388-1",
+    "label": "batch size 1",
+    "engine": "mlx",
+    "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "quant": "int4",
+    "dtype": "int4",
+    "device": "mps (Metal/MLX)",
+    "concurrency": 1,
+    "num_requests": 1,
+    "max_output_tokens": 128,
+    "load_time_s": 0.54,
+    "hardware": {
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "cpu": "arm",
+      "python": "3.13.13",
+      "chip": "Apple M5 Pro",
+      "memory_gb": 24.0
+    },
+    "versions": {
+      "torch": "2.12.1",
+      "transformers": "5.12.1",
+      "mlx_lm": "0.31.3",
+      "mlx": "0.31.2"
+    },
+    "git_commit": "n/a",
+    "timestamp": "2026-06-28T17:06:28+00:00",
+    "study": "batching",
+    "params": {
+      "batch_size": 1
+    },
+    "price_per_hour": null
+  },
+  "aggregates": {
+    "system_throughput_tps": 62.9,
+    "per_stream_tps": 62.9,
+    "total_output_tokens": 128,
+    "wall_clock_s": 2.0351,
+    "compute": {
+      "peak_accel_mem_mb": 4105.7,
+      "peak_rss_mb": 4549.7,
+      "samples": 9
+    },
+    "cost_per_1m_tokens_usd": null
+  },
+  "requests": [],
+  "compute": [
+    {
+      "t": 0.0,
+      "rss_mb": 4470.9,
+      "cpu_pct": 98.9,
+      "accel_mem_mb": 4088.9,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.255,
+      "rss_mb": 4549.7,
+      "cpu_pct": 44.0,
+      "accel_mem_mb": 4105.7,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.509,
+      "rss_mb": 4520.1,
+      "cpu_pct": 20.3,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 0.763,
+      "rss_mb": 4520.1,
+      "cpu_pct": 19.9,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.017,
+      "rss_mb": 4520.1,
+      "cpu_pct": 19.6,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.272,
+      "rss_mb": 4520.1,
+      "cpu_pct": 19.9,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.526,
+      "rss_mb": 4520.2,
+      "cpu_pct": 20.5,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 1.781,
+      "rss_mb": 4520.2,
+      "cpu_pct": 19.5,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    },
+    {
+      "t": 2.035,
+      "rss_mb": 4520.2,
+      "cpu_pct": 20.2,
+      "accel_mem_mb": 4105.5,
+      "gpu_util_pct": null,
+      "gpu_power_w": null
+    }
+  ]
+}

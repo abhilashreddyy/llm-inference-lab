@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Models — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Model comparison</h1>
+        <p class="tagline">Famous and coding-specialized models, all run as 4-bit on the same Mac, scored on real tasks. Which one is the best local assistant?</p>
+        <div id="env-badges" class="badges"></div>
+      </div>
+    </header>
+
+    <div id="models-body">
+      <div class="card empty" id="pending">Model evaluation is still running — this page fills in when it finishes.</div>
+    </div>
+
+  </div>
+
+  <script src="models-data.js"></script>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="models.js"></script>
+</body>
+</html>

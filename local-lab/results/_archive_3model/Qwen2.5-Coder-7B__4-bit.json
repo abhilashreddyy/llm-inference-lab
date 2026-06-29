@@ -1,0 +1,31 @@
+{
+  "label": "Qwen2.5-Coder-7B \u00b7 4-bit",
+  "model": "mlx-community/Qwen2.5-Coder-7B-Instruct-4bit",
+  "system": {
+    "load_time_s": 174.12,
+    "weights_peak_mem_mb": 4088.9,
+    "disk_mb": 4096.9
+  },
+  "speed": {
+    "ttft_ms": 166.7,
+    "tpot_ms": 14.89,
+    "decode_tps": 67.2
+  },
+  "perplexity": 26.7157,
+  "tasks": {
+    "gsm8k": {
+      "task": "gsm8k",
+      "n": 40,
+      "correct": 33,
+      "accuracy": 0.825,
+      "seconds": 145.2
+    },
+    "humaneval": {
+      "task": "humaneval",
+      "n": 40,
+      "passed": 37,
+      "pass@1": 0.925,
+      "seconds": 101.4
+    }
+  }
+}

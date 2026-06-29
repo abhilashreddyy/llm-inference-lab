@@ -1,0 +1,36 @@
+# Experiment matrix. Adding a row = adding a benchmark. No code changes.
+# The story: naive Transformers baseline -> Apple-native MLX -> MLX 4-bit quantized.
+# On AWS, add rows with engine: vllm (quant: awq/fp8) — same schema, same runner.
+
+workload:
+  num_requests: 16          # requests per engine (excludes a warmup request)
+  concurrency: 1            # bump to show continuous-batching wins on server engines
+  max_output_tokens: 128
+  prompts:
+    - "Explain how a transformer neural network works, step by step."
+    - "Write a Python function that returns the nth Fibonacci number, with comments."
+    - "Summarize the causes of the 2008 financial crisis in one paragraph."
+    - "What are the trade-offs between latency and throughput in LLM serving?"
+    - "Describe how PagedAttention reduces KV-cache memory waste."
+    - "Give three tips for optimizing inference on a single GPU."
+
+cost:
+  # $/hour of the machine running the engine. Null locally (no per-hour cost).
+  # On AWS set e.g. 1.006 for g5.xlarge on-demand -> enables $/1M-token math.
+  price_per_hour: null
+
+runs:
+  - label: "Transformers FP16 (baseline)"
+    engine: transformers
+    model: Qwen/Qwen2.5-1.5B-Instruct
+    quant: fp16
+
+  - label: "MLX BF16"
+    engine: mlx
+    model: mlx-community/Qwen2.5-1.5B-Instruct-bf16
+    quant: bf16
+
+  - label: "MLX 4-bit (optimized)"
+    engine: mlx
+    model: mlx-community/Qwen2.5-1.5B-Instruct-4bit
+    quant: int4

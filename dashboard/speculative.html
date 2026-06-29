@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speculative decoding — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+    <header class="hero"><div class="hero-text">
+      <h1>Speculative decoding</h1>
+      <p class="tagline">A tiny draft model guesses ahead; the big model verifies in one pass. Compared across models, then a deep breakdown of one target.</p>
+      <div id="mode-badge" class="badges"></div>
+    </div></header>
+
+    <div id="pending" class="card empty">Experiments haven't been run yet. Run <code>./scripts/dev.sh</code> (dev) or the full experiments — this page fills in then.</div>
+
+    <div id="body" hidden>
+      <section class="card">
+        <h2>Across models: does speculation help?</h2>
+        <p class="muted">Same idea, different targets. Speedup needs a cheap draft that's <i>often right</i> — so it varies a lot by model. Each target uses a smaller same-family draft.</p>
+        <div id="xm-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="speculative"><h3>Speedup vs no speculation (per model)</h3><canvas id="xm-speedup"></canvas></div>
+          <div data-info-corner="acceptance"><h3>Acceptance rate (per model)</h3><canvas id="xm-accept"></canvas></div>
+        </div>
+        <div class="table-scroll"><table id="xm-table"></table></div>
+        <div class="analysis" id="xm-analysis"></div>
+      </section>
+
+      <section class="card">
+        <h2>How it works (the story)</h2>
+        <div class="story" id="story"></div>
+      </section>
+
+      <section class="card" id="detail-card">
+        <h2>Deep dive: <span id="detail-target"></span></h2>
+        <div id="k-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Acceptance &amp; tokens-per-target-pass vs k</h3><canvas id="kacc"></canvas></div>
+          <div data-info-corner="throughput"><h3>Throughput vs k</h3><canvas id="ktps"></canvas></div>
+        </div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Token source (best k)</h3><canvas id="donut"></canvas></div>
+          <div><h3>What this means</h3><div class="story" id="donut-note"></div></div>
+        </div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Where it shines: acceptance by prompt type</h3><canvas id="prompt"></canvas></div>
+          <div data-info-corner="acceptance"><h3>Which draft? acceptance by draft</h3><canvas id="draft"></canvas></div>
+        </div>
+        <div class="analysis" id="detail-analysis"></div>
+      </section>
+    </div>
+  </div>
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="speculative.js"></script>
+</body>
+</html>

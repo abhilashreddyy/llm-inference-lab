@@ -1,0 +1,21 @@
+# Copy to terraform.tfvars and edit. (terraform.tfvars is gitignored.)
+
+region          = "us-east-1"
+instance_type   = "g5.xlarge"
+use_spot        = true
+model           = "Qwen/Qwen2.5-7B-Instruct"
+
+# Lock access to your IP:  curl ifconfig.me  -> "1.2.3.4/32"
+allowed_cidr    = "0.0.0.0/0"
+
+# Your SSH public key (created with: ssh-keygen -t ed25519)
+public_key_path = "~/.ssh/id_ed25519.pub"
+
+# Set true ONLY if you want to benchmark remotely from your Mac (adds network latency).
+expose_vllm_port = false
+
+# Auto-clone the harness onto the box so you can run benchmarks on localhost.
+# git_repo_url  = "https://github.com/<you>/llm-inference-lab.git"
+
+# Only for gated models (Llama). Qwen is public — leave empty.
+# hf_token      = "hf_xxx"

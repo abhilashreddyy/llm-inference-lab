@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep dive — LLM Inference Lab</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="wrap">
+    <div id="nav"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Deep dive: speculative decoding &amp; stacked optimizations</h1>
+        <p class="tagline">The full story of speculative decoding — measured on Qwen2.5-3B with 0.5B and 1.5B drafts — plus what happens when you stack optimizations and push KV-cache quant into long context.</p>
+      </div>
+    </header>
+
+    <div id="pending" class="card empty">Experiments haven't been run yet. They run after the model comparison finishes — this page fills in then.</div>
+
+    <div id="dd-body" hidden>
+      <!-- 1. The story -->
+      <section class="card">
+        <h2>How speculative decoding actually works</h2>
+        <div class="story" id="spec-story"></div>
+      </section>
+
+      <!-- 2. Stretch & acceptance (k-sweep) -->
+      <section class="card">
+        <h2>The "stretch": how many tokens per expensive step</h2>
+        <p class="muted">A small draft proposes <b>k</b> tokens each round; the big model verifies them in one pass and keeps the correct prefix. More accepted = more tokens per expensive target forward pass.</p>
+        <div id="ksweep-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Acceptance rate &amp; tokens per target pass vs k</h3><canvas id="dd-kacc"></canvas></div>
+          <div data-info-corner="throughput"><h3>Throughput vs k (0.5B draft → 3B)</h3><canvas id="dd-ktps"></canvas></div>
+        </div>
+      </section>
+
+      <!-- 3. Token source donut -->
+      <section class="card">
+        <h2>Where did the output tokens come from?</h2>
+        <p class="muted">With a good draft, most output tokens are produced cheaply by the draft and merely <i>verified</i> by the big model — that's the saving.</p>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Token source (best config)</h3><canvas id="dd-donut"></canvas></div>
+          <div><h3 id="donut-note-h">What this means</h3><div class="story" id="donut-note"></div></div>
+        </div>
+      </section>
+
+      <!-- 4. Which draft model -->
+      <section class="card">
+        <h2>Which draft model? 0.5B vs 1.5B</h2>
+        <p class="muted">A bigger draft predicts the target better (higher acceptance) but costs more per token. The best draft is a balance — shown here for the same 3B target.</p>
+        <div class="grid-2">
+          <div data-info-corner="acceptance"><h3>Acceptance rate by draft</h3><canvas id="dd-draftacc"></canvas></div>
+          <div data-info-corner="throughput"><h3>Throughput by draft</h3><canvas id="dd-drafttps"></canvas></div>
+        </div>
+        <div class="analysis" id="draft-analysis"></div>
+      </section>
+
+      <!-- 5. Where it shines (prompt type) -->
+      <section class="card">
+        <h2>Where speculative decoding shines</h2>
+        <p class="muted">Acceptance depends on how predictable the text is. Structured/repetitive output is easy for a small draft; open-ended creative text is hard.</p>
+        <div data-info-corner="acceptance"><h3>Acceptance rate by prompt type</h3><canvas id="dd-prompt"></canvas></div>
+        <div class="analysis" id="prompt-analysis"></div>
+      </section>
+
+      <!-- 6. Memory cost -->
+      <section class="card">
+        <h2>The memory cost of a draft</h2>
+        <p class="muted">Speculation loads a second model, so peak memory rises — the price for speed.</p>
+        <div data-info-corner="gpu_memory"><h3>Peak GPU memory: baseline vs speculative</h3><canvas id="dd-mem"></canvas></div>
+      </section>
+
+      <!-- 7. Stacked optimizations -->
+      <section class="card">
+        <h2>Stacking optimizations</h2>
+        <p class="muted">Start from 4-bit, add KV-cache quant, add speculative decoding, then both — and watch throughput, latency, and memory move together.</p>
+        <div id="combo-cards" class="metric-row"></div>
+        <div class="grid-2">
+          <div data-info-corner="throughput"><h3>Throughput by optimization stack</h3><canvas id="dd-combotps"></canvas></div>
+          <div data-info-corner="gpu_memory"><h3>Peak memory by optimization stack</h3><canvas id="dd-combomem"></canvas></div>
+        </div>
+        <div class="analysis" id="combo-analysis"></div>
+      </section>
+
+      <!-- 8. KV-cache at long context -->
+      <section class="card">
+        <h2>KV-cache quant: it pays off at long context</h2>
+        <p class="muted">At short context the weights dominate memory, so KV quant barely helps. As context grows, the cache grows — and quantizing it saves real memory.</p>
+        <div data-info-corner="kv_quant"><h3>Peak GPU memory vs context length (KV full / 8-bit / 4-bit)</h3><canvas id="dd-kvctx"></canvas></div>
+        <div class="analysis" id="kv-analysis2"></div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="exp-data.js"></script>
+  <script src="glossary.js"></script>
+  <script src="ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="deepdive.js"></script>
+</body>
+</html>

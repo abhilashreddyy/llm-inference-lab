@@ -1,0 +1,9 @@
+# Tiny smoke config: validate the local-lab code path with 0.5B models (fast).
+eval:
+  gsm8k_n: 3
+  humaneval_n: 3
+  run_math: true
+  run_coding: true
+configs:
+  - label: "Qwen2.5-0.5B · 4-bit (smoke)"
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit

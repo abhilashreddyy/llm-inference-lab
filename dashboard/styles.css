@@ -127,6 +127,10 @@ h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 2px 0 12px; 
 .navlinks a { font-size: 13px; padding: 6px 12px; border-radius: 8px; color: var(--muted); text-decoration: none; }
 .navlinks a:hover { color: var(--text); background: var(--panel-2); }
 .navlinks a.active { color: var(--text); background: var(--panel-2); border: 1px solid var(--border); }
+.navlinks a.gh-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text);
+  border: 1px solid #4a5a82; background: #33405e; font-weight: 600; }
+.navlinks a.gh-link:hover { background: #3e4d70; border-color: #5d6f9c; }
+.navlinks a.gh-link svg { display: block; }
 
 /* ---- info-icon tooltip ---- */
 .info { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;

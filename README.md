@@ -16,7 +16,6 @@ configs/*.yaml ─▶ Engine (transformers · mlx · vllm) ─▶ Runner + LoadG
 
 The dashboard (`dashboard/`) is a fully client-side static site — no server, no GPU. It renders **committed results** (`dashboard/*-data.js`), so anyone can browse it instantly. It auto-publishes to GitHub Pages on every push to `main` via [`.github/workflows/pages.yml`](.github/workflows/pages.yml). To regenerate the results yourself, see [Reproduce the dashboard](#reproduce-the-dashboard).
 
-> After enabling Pages (Settings → Pages → Source: **GitHub Actions**), replace `abhilashreddyy` above with your handle.
 
 ## Reproduce the dashboard
 
